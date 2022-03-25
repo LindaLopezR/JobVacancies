@@ -1,0 +1,62 @@
+@import './variables';
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  table tr td.cell-message {
+    p {
+      &:first-child {
+        width: 30rem;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 991px) and (min-width: 768px) {
+  table tr td.cell-message {
+    p {
+      &:first-child {
+        width: 15rem;
+      }
+    }
+  }
+
+  .table-responsive-vacancies {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .container-body {
+    min-height: 100%;
+    height: auto!important;
+  }
+
+  .card-vacancy {
+    max-height: 50vh!important;
+  }
+  
+  .card-candidates, 
+  .card-history {
+    max-height: initial!important;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: none!important;
+  }
+  .sidebar:not(.sidebar-end)~* {
+    --cui-sidebar-occupy-start: 0rem!important;
+  }
+  table tr td.cell-message {
+    p {
+      &:first-child {
+        width: 10rem;
+      }
+    }
+  }
+
+  .table-responsive-vacancies {
+    overflow-x: auto;
+  }
+}

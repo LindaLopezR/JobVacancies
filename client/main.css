@@ -1,0 +1,14 @@
+
+#react-target {
+  height: 94%;
+}
+.wrapper {
+  padding-left: var(--cui-sidebar-occupy-start,0);
+  height: 100%;
+}
+.container-body {
+  height: 100%;
+  padding: 1rem 0;
+  background-color: var(--cui-light,#ebedef)!important;
+}
+

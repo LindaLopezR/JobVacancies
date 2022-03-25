@@ -1,0 +1,94 @@
+
+
+$warning-color: #D9D793;
+$danger-color: #C9252C;
+$success-color: #5cad56;
+$success-color-dark: #21481f;
+
+// header
+$main-color: #C9252C;
+$main-color-dark: #591C1C;
+$secondary-color: #C8B682;
+$light-color: #DAD0C2;
+
+$teal-color: #00b5ad;
+$teal-color-dark: #009c95;
+$blue-color: #25AAE1;
+$blue-color-dark: #2C89AC;
+$blue-dark: #135071;
+$background-color-general: #E6E7E8;
+$purple-color: #7d4099;
+$orange-color: #f1592a;
+$pink-color: rgb(238, 147, 223);
+
+$primary-color: #80A0E0;
+$primary-color-dark: #5f84ce;
+
+// Font
+@font-face {
+  src: url("/fonts/NunitoSans-Bold.ttf");
+  font-family: fontTitles;
+}
+
+@font-face {
+  src: url("/fonts/NunitoSans-Regular.ttf");
+  font-family: fontGeneral;
+}
+
+// Animations
+@mixin transform($translate) {
+  -webkit-transform: $translate;
+  -moz-transform: $translate;
+  -ms-transform: $translate;
+  -o-transform: $translate;
+  transform: $translate;
+}
+
+@mixin transition($transform, $shadow) {
+  -webkit-transition: $transform, $shadow;
+  -moz-transition: $transform, $shadow;
+  transition: $transform, $shadow;
+}
+
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+  -moz-animation: $animation;
+  animation: $animation;
+}
+
+@mixin circle($size) {
+  top: $size;
+  left: $size;
+  right: $size;
+  bottom: $size;
+}
+
+@mixin burble($left, $width, $height, $animation) {
+  left: $left;
+  width: $width;
+  height: $height;
+  animation-delay: $animation;
+}
+
+// Utilities
+@mixin centerItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin scrollContent {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #dadada; 
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d3d3d3; 
+  }
+}

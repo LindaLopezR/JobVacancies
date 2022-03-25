@@ -1,0 +1,82 @@
+import { MessagesCollection } from '/imports/api/messages';
+import { NominationsCollection } from '/imports/api/nominations';
+import { VacanciesCollection } from '/imports/api/vacancies';
+
+Meteor.methods({
+
+  newVacancy(json) {
+    json.enable = true;
+    json.user = this.userId;
+		json.date = Date.now();
+    json.status = 'ACTIVE';
+    json.history = [];
+
+    if (VacanciesCollection.findOne({ enable: true, name: json.name })) {
+      throw new Meteor.Error('duplicate-name', 'El nombre de la vacante ya existe.');
+    }
+
+    if (VacanciesCollection.findOne({ enable: true, id: json.id })) {
+      throw new Meteor.Error('duplicate-id', 'ID ya registrado.');
+    }
+
+    return VacanciesCollection.insert(json);
+  },
+
+  editVacancy(vacancyId, json) {
+    const oldVacancy = VacanciesCollection.findOne({ _id: vacancyId });
+    oldVacancy.description = json.description;
+    oldVacancy.name = json.name;
+    oldVacancy.typeSite = json.typeSite;
+    oldVacancy.id = json.id;
+    oldVacancy.typeWork = json.typeWork;
+
+    return VacanciesCollection.update({ _id: vacancyId }, { $set: oldVacancy });
+  },
+
+  deleteVacancy(vacancyId) {
+    NominationsCollection.remove({ vacancy: vacancyId });
+    return VacanciesCollection.remove({ _id: vacancyId });
+  },
+
+  getVacancayById(vacancyId) {
+    const vacancy = VacanciesCollection.findOne({ _id: vacancyId });
+    const nominations = NominationsCollection.find({ vacancy: vacancyId }).fetch();
+    const allUsers = Meteor.users.find().fetch();
+    const allMessages = MessagesCollection.find().fetch();
+
+    return {
+      vacancy,
+      nominations,
+      allUsers,
+      allMessages,
+      history: vacancy.history
+    };
+  },
+
+  
+  sendMessage(data) {
+    data.date = Date.now();
+    VacanciesCollection.update({ _id: data.vacancy }, {
+      $push: { 
+        history: data
+      },
+    });
+    return true;
+  },
+
+  sendNewMessage(json) {
+    json.candidates.forEach(candidate => {
+      try {
+        const data = {
+          candidate,
+          vacancy: json.vacancy,
+          message: json.message
+        }
+        Meteor.call('sendMessage', data);
+      } catch(error) {
+        console.log(error);
+      }
+    });
+  },
+
+});

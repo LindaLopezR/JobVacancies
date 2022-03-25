@@ -1,0 +1,68 @@
+@import './variables';
+
+
+.content-login {
+  width: 25%;
+  height: 45%;
+  .card-body {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.bg {
+  animation:slide 9s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #f0f7d9 50%, #a1d66f 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+}
+
+.bg2 {
+  animation-direction:alternate-reverse;
+  animation-duration:10s;
+}
+
+.bg3 {
+  animation-duration:12s;
+}
+
+@keyframes slide {
+  0% {
+    transform:translateX(-25%);
+  }
+  100% {
+    transform:translateX(25%);
+  }
+}
+
+
+@-webkit-keyframes wawes {
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
+}
+@-moz-keyframes wawes {
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
+}
+@keyframes wawes {
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
+}
