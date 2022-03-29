@@ -22,6 +22,10 @@ h6 {
   }
 }
 
+p, li, a, label, select, input {
+  font-size: 0.9rem!important;
+}
+
 .title-segment {
   color: #999!important;
   font-weight: bold;
@@ -42,6 +46,10 @@ h6 {
   padding: 1rem;
   align-items: center;
   justify-content: center;
+}
+
+.btn {
+  font-size: 0.9rem!important;
 }
 
 .btn-circle {
@@ -139,13 +147,21 @@ h6 {
   background-color: #5c5594!important;
 }
 
+// CARDS 
+.card .card-header {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: #34a52f14;
+}
+
 table {
+  font-size: 0.85rem;
   thead {
     tr {
       th {
         border: 0;
         text-transform: uppercase;
-        font-weight: 500;
         padding: 0.9rem 0.5rem!important;
         font-size: 13px;
       }
@@ -156,24 +172,7 @@ table {
       padding: 1rem 0.5rem!important;
       border: 0;
     }
-    td.cell-message {
-      width: 60%;
-      p {
-        margin-bottom: 0;
-        font-size: 14px;
-        &:first-child {
-          width: 35rem;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-        &:not(:first-child) {
-          display: none;
-        }
-      }
-    }
     td.cell-description {
-      width: 20%;
       p {
         margin-bottom: 0;
         font-size: 14px;
@@ -201,7 +200,14 @@ li.page-item.active  a.page-link {
 }
 
 // MESSAGES
-
+td.cell-label-message {
+  > * {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
 
 
 

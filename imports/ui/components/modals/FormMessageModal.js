@@ -1,10 +1,10 @@
 import { 
-  CButton, CFormSelect, CModal, CModalBody, CModalFooter, 
+  CButton, CFormLabel, CFormSelect, CModal, CModalBody, CModalFooter, 
   CModalHeader, CModalTitle 
 } from '@coreui/react';
 import React, { useState } from 'react';
 
-import { renderMessagesOptions } from '../../pages/utils/formatters';
+import { renderMessagesOptions } from '/imports/ui/pages/utils/formatters';
 
 export default FormMessageModal = props => {
   const { visible, messages = [], handleClose = () => {}, handleAction = () => {}, } = props;
@@ -18,8 +18,6 @@ export default FormMessageModal = props => {
     return handleAction(valueDefault);
   };
 
-  console.log(messages)
-
   return (
     <CModal
       alignment="center"
@@ -30,7 +28,7 @@ export default FormMessageModal = props => {
         <CModalTitle>Enviar</CModalTitle>
       </CModalHeader>
       <CModalBody>
-        Elige el mensaje a enviar:
+        <CFormLabel>Elige el mensaje a enviar:</CFormLabel>
         <CFormSelect
           aria-label="message"
           value={valueDefault}

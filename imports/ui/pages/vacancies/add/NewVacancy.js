@@ -45,6 +45,7 @@ export const NewVacancy = (props) => {
     typeWork: '',
     typeSite: '',
     id: '',
+    status: ''
   });
   const [ showModal, setShowModal ] = useState(false);
   const [ titleModal, setTitleModal ] = useState('');
@@ -52,8 +53,8 @@ export const NewVacancy = (props) => {
 
   useEffect(() => {
     if (vaccineData) {
-      const { description, name, typeSite, typeWork, id } = vaccineData;
-      const vacancyEdit = { description, name, typeSite, typeWork, id };
+      const { description, name, typeSite, typeWork, id, status } = vaccineData;
+      const vacancyEdit = { description, name, typeSite, typeWork, id, status };
       setData(vacancyEdit);
       setLoading(false);
     } else {
@@ -160,9 +161,9 @@ export const NewVacancy = (props) => {
                         />
                       </CCol>
                       <CCol md={6} className="mb-3">
-                        <CFormLabel htmlFor="name">Tipo de trabajo</CFormLabel>
+                        <CFormLabel htmlFor="typeWork">Tipo de trabajo</CFormLabel>
                         <CFormSelect 
-                          aria-label="type"
+                          aria-label="typeWork"
                           options={[
                             'Selecciona',
                             { label: 'Jornada completa', value: 1 },
@@ -177,18 +178,34 @@ export const NewVacancy = (props) => {
                         />
                       </CCol>
                       <CCol md={6} className="mb-3">
-                        <CFormLabel htmlFor="name">Tipo de lugar de trabajo</CFormLabel>
+                        <CFormLabel htmlFor="typeSite">Tipo de lugar de trabajo</CFormLabel>
                         <CFormSelect 
-                          aria-label="type"
+                          aria-label="typeSite"
                           options={[
                             'Selecciona',
                             { label: 'Presencial', value: 1 },
                             { label: 'Híbrido', value: 2 },
                             { label: 'Remoto', value: 3 },
                           ]}
+                          value={data.typeWork}
                           onChange={e => updateData('typeSite', e.target.value)}
                         />
                       </CCol>
+                      {mode === MODES.EDIT &&
+                        <CCol md={6} className="mb-3">
+                          <CFormLabel htmlFor="status">Estatus</CFormLabel>
+                          <CFormSelect 
+                            aria-label="status"
+                            options={[
+                              'Selecciona',
+                              { label: 'Activo', value: 'ACTIVE' },
+                              { label: 'Desactivado', value: 'INACTIVE' },
+                            ]}
+                            value={data.status}
+                            onChange={e => updateData('status', e.target.value)}
+                          />
+                        </CCol>
+                      }
                     </CRow>
                   </CCardBody>
                 </CCard>

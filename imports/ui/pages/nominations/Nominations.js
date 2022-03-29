@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import { CButton, CCol, CContainer, } from '@coreui/react';
+import { CButton, CCard, CCardBody, CCol } from '@coreui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook, faEye, faUsersSlash, } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -41,12 +41,14 @@ export const Nominations = () => {
       text: 'Fecha',
       sort: true,
       formatter: dateFormatter
-    }, {
-      dataField: 'status',
-      text: 'Estatus',
-      sort: true,
-      formatter: badgeStatus
-    }, {
+    },
+    // {
+    //   dataField: 'status',
+    //   text: 'Estatus',
+    //   sort: true,
+    //   formatter: badgeStatus
+    // },
+    {
       dataField: 'view',
       text: 'Ver',
       formatter: (cell, row) => {
@@ -81,16 +83,20 @@ export const Nominations = () => {
       <CCol xs={12}>
         {allNominations.length > 0
           ? (
-            <div className="table-responsive-vacancies">
-              <BootstrapTable
-                keyField='_id'
-                data={ allNominations }
-                columns={ columns }
-                pagination={paginationFactory()}
-                striped
-                condensed
-              />
-            </div>
+            <CCard>
+              <CCardBody>
+                <div className="table-responsive-vacancies">
+                  <BootstrapTable
+                    keyField='_id'
+                    data={ allNominations }
+                    columns={ columns }
+                    pagination={paginationFactory()}
+                    striped
+                    condensed
+                  />
+                </div>
+              </CCardBody>
+            </CCard>
           )
           : <NoData title="Sin datos por mostrar" icon={faUsersSlash} />
         }

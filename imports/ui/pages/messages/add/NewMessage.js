@@ -25,6 +25,7 @@ export const NewMessage = (props) => {
 
   const { mode } = props;
   const [ loading, setLoading ] = useState(true);
+
   let messageData = null;
 
   if (mode === MODES.EDIT) {
@@ -35,15 +36,17 @@ export const NewMessage = (props) => {
 
   const history = useNavigate();
   const { handleSubmit } = useForm();
-  const [ text, setText ] = useState('');
+  const [ contentText, setContentText ] = useState('');
+  const [ label, setLabel ] = useState('');
   const [ showModal, setShowModal ] = useState(false);
   const [ titleModal, setTitleModal ] = useState('');
   const [ messageModal, setMessageModal ] = useState('');
 
   useEffect(() => {
     if (messageData) {
-      const { message } = messageData;
-      setText(message);
+      const { label, message } = messageData;
+      setContentText(message);
+      setLabel(label);
       setLoading(false);
     } else {
       setLoading(false);
@@ -52,14 +55,15 @@ export const NewMessage = (props) => {
 
   const onSubmit = () => {
 
-    if(!text) {
+    if(!contentText) {
       setTitleModal('Error');
       setMessageModal('Ingresa un mensaje');
       return setShowModal(true);
     }
 
     const data = {
-      message: text
+      message: contentText,
+      label
     };
 
     setLoading(true);
@@ -83,6 +87,12 @@ export const NewMessage = (props) => {
       Meteor.call('editMessage', messageData._id, data, callback);
     }
   };
+
+  const handleChange = (content, delta, source, editor) => {
+    const value = editor.getText(content);
+    setContentText(content);
+    setLabel(value);
+  }
 
   if (loading) {
     return <LoadingView />;
@@ -113,8 +123,8 @@ export const NewMessage = (props) => {
               <div className="mb-3">
                 <ReactQuill
                   theme="snow"
-                  value={text}
-                  onChange={setText}
+                  value={contentText}
+                  onChange={handleChange}
                   placeholder={'Hola {{user}}, nos complace informarte...'}
                 />
               </div>

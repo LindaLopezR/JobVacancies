@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { 
   CButton, CCard, CCardBody, CCardHeader, CCardTitle, 
-  CCol,  CListGroup, CListGroupItem, CRow,
+  CCol, CRow,
 } from '@coreui/react';
-import { faBriefcase, faList, } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
 
@@ -73,7 +73,7 @@ export const ViewNomination = (props) => {
             </CCard>
           </CCol>
           <CCol md={8}>
-            <CCard className="mb-3">
+            <CCard className="card-answers mb-3">
               <CCardHeader>Respuestas</CCardHeader>
               <CCardBody>
                 <MessagesTable

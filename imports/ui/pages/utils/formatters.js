@@ -1,7 +1,7 @@
 import React from 'react';
 import { CBadge } from '@coreui/react';
 import { default as momenttz } from 'moment-timezone';
-import parse from 'html-react-parser';
+import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
 const timezone = Meteor.settings.public.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -26,6 +26,14 @@ export const orderCollection = (arrayCollection) => {
     }
     return a.length - b.length;
   })
+}
+
+export const orderItems = (items, item) => {
+  return items.sort((a, b) => {
+    if (a[item] < b[item]) return 1;
+    if (a[item] > b[item]) return -1;
+    return 0;
+  });
 }
 
 export const getEmployeeNumber = (item, collection) => {
@@ -66,6 +74,9 @@ export const colorStatus = (item) => {
     case 'CANCELLED':
       color = 'danger';
       break;
+    case 'DISAPPROVE':
+      color = 'light';
+      break;
     default:
       color = 'secondary';
       break;
@@ -84,6 +95,9 @@ export function textStatus(cell) {
       break;
     case 'CANCELLED':
       text = 'CANCELADO';
+      break;
+    case 'DISAPPROVE':
+      text = 'DESAPROBADO';
       break;
     default:
       text = '--';
@@ -114,9 +128,8 @@ export const getMessages = (item, collection) => {
 
 export const renderMessagesOptions = (collection) => {
   return collection.map((item, index) => {
-    const dataMessage = parse(item.message);
-    const message = dataMessage[0].props.children;
-    const finalMessage = message.length > 60 ? message.substring(0, 60) + "..." : message;
+    const name = item.label ? item.label : 'Item';
+    const finalMessage = name.length > 60 ? name.substring(0, 60) + '...' : name;
     
     return (
       <option

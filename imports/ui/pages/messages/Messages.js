@@ -46,14 +46,15 @@ export const Messages = () => {
 
   const columns = [
     {
-      dataField: 'message',
+      dataField: 'label',
       text: 'Mensaje',
+      classes: 'cell-label-message',
       formatter: (cell, row) => (
-        <div>
-          {parse(cell)}
-        </div>
+        <div>{cell}</div>
       ),
-      classes: 'cell-message'
+      headerStyle: () => {
+        return { width: '45%' };
+      }
     }, {
       dataField: 'edit',
       text: 'Editar',
@@ -67,7 +68,10 @@ export const Messages = () => {
             <FontAwesomeIcon icon={faPencilAlt} />
           </CButton>
         </center>
-      )
+      ),
+      headerStyle: () => {
+        return { width: '20%' };
+      }
     }, {
       dataField: 'delete',
       text: 'Eliminar',
@@ -84,9 +88,26 @@ export const Messages = () => {
             <FontAwesomeIcon icon={faTimes} />
           </CButton>
         </center>
-      )
+      ),
+      headerStyle: () => {
+        return { width: '20%' };
+      }
     }
   ];
+
+  const expandRow = {
+    renderer: row => {
+      const dataMessage = row.message;
+      return (
+        <div>
+          {dataMessage && parse(dataMessage)}
+        </div>
+      )
+    },
+    showExpandColumn: true,
+    expandByColumnOnly: true,
+    onlyOneExpanding: true,
+  };
 
   if (loading || loading1) {
     return <LoadingView />;
@@ -137,6 +158,7 @@ export const Messages = () => {
                   keyField='_id'
                   data={ allMessages }
                   columns={ columns }
+                  expandRow={ expandRow }
                   pagination={paginationFactory()}
                   bootstrap4
                   striped

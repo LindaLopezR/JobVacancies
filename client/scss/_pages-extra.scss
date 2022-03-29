@@ -39,13 +39,19 @@
   @include scrollContent;
 }
 
-.card-candidates {
+.card-candidates .card-body {
   max-height: 46vh;
   @include scrollContent;
 }
 
-.card-history {
+.card-history .card-body {
   max-height: 30vh;
+  @include scrollContent;
+}
+
+.card-answers .card-body {
+  max-height: 80vh;
+  overflow-y: auto;
   @include scrollContent;
 }
 

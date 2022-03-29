@@ -1,28 +1,10 @@
 @import './variables';
 
 @media (max-width: 1199px) and (min-width: 992px) {
-  table tr td.cell-message {
-    p {
-      &:first-child {
-        width: 30rem;
-      }
-    }
-  }
 }
 
 
 @media (max-width: 991px) and (min-width: 768px) {
-  table tr td.cell-message {
-    p {
-      &:first-child {
-        width: 15rem;
-      }
-    }
-  }
-
-  .table-responsive-vacancies {
-    overflow-x: auto;
-  }
 }
 
 @media (max-width: 991px) {
@@ -35,9 +17,17 @@
     max-height: 50vh!important;
   }
   
-  .card-candidates, 
-  .card-history {
+  .card-candidates .card-body, 
+  .card-history .card-body,
+  .card-answers .card-body {
     max-height: initial!important;
+  }
+
+  .table-responsive-vacancies {
+    overflow-x: auto;
+    table {
+      width: 60rem!important;
+    }
   }
 }
 
@@ -47,16 +37,5 @@
   }
   .sidebar:not(.sidebar-end)~* {
     --cui-sidebar-occupy-start: 0rem!important;
-  }
-  table tr td.cell-message {
-    p {
-      &:first-child {
-        width: 10rem;
-      }
-    }
-  }
-
-  .table-responsive-vacancies {
-    overflow-x: auto;
   }
 }

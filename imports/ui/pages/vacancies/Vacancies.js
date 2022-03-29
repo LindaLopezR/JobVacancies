@@ -52,21 +52,33 @@ export const Vacancies = () => {
     {
       dataField: 'id',
       text: 'ID',
-      sort: true
+      sort: true,
+      headerStyle: () => {
+        return { width: '5%' };
+      }
     }, {
       dataField: 'name',
       text: 'Nombre',
-      sort: true
+      sort: true,
+      headerStyle: () => {
+        return { width: '20%' };
+      }
     }, {
       dataField: 'date',
       text: 'Fecha',
       sort: true,
-      formatter: dateFormatter
+      formatter: dateFormatter,
+      headerStyle: () => {
+        return { width: '10%' };
+      }
     }, {
       dataField: 'user',
       text: 'Originador',
       sort: true,
-      formatter: (cell) => getNameItem(cell, allUsers)
+      formatter: (cell) => getNameItem(cell, allUsers),
+      headerStyle: () => {
+        return { width: '15%' };
+      }
     }, {
       dataField: 'description',
       text: 'Descripción',
@@ -75,7 +87,10 @@ export const Vacancies = () => {
           {parse(cell)}
         </div>
       ),
-      classes: 'cell-description'
+      classes: 'cell-description',
+      headerStyle: () => {
+        return { width: '15%' };
+      }
     }, {
       dataField: 'view',
       text: 'Ver',
@@ -89,7 +104,10 @@ export const Vacancies = () => {
             <FontAwesomeIcon icon={faEye} />
           </CButton>
         </center>
-      )
+      ),
+      headerStyle: () => {
+        return { width: '10%' };
+      }
     }, {
       dataField: 'edit',
       text: 'Editar',
@@ -103,7 +121,10 @@ export const Vacancies = () => {
             <FontAwesomeIcon icon={faPencilAlt} />
           </CButton>
         </center>
-      )
+      ),
+      headerStyle: () => {
+        return { width: '10%' };
+      }
     }, {
       dataField: 'delete',
       text: 'Eliminar',
@@ -120,9 +141,26 @@ export const Vacancies = () => {
             <FontAwesomeIcon icon={faTimes} />
           </CButton>
         </center>
-      )
+      ),
+      headerStyle: () => {
+        return { width: '10%' };
+      }
     }
   ];
+
+  const expandRow = {
+    renderer: row => {
+      const dataMessage = row.description;
+      return (
+        <div>
+          {dataMessage && parse(dataMessage)}
+        </div>
+      )
+    },
+    showExpandColumn: true,
+    expandByColumnOnly: true,
+    onlyOneExpanding: true,
+  };
 
   if (loading || loading1 || loading2) {
     return <LoadingView />;
@@ -174,6 +212,7 @@ export const Vacancies = () => {
                     keyField='_id'
                     data={ allVacancies }
                     columns={ columns }
+                    expandRow={ expandRow }
                     pagination={paginationFactory()}
                     striped
                     condensed
