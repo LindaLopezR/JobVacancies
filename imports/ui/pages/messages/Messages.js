@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import { CButton, CCard, CCardBody, CCol, CContainer, } from '@coreui/react';
+import { CButton, CCard, CCardBody, CCol } from '@coreui/react';
 import { faCommentDots, faCommentSlash, faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
@@ -9,10 +9,11 @@ import parse from 'html-react-parser';
 
 import { useAllMessages } from '/imports/startup/client/hooks';
 
-import NoData from '../../components/noData/NoData';
-import LoadingView from '../../components/loading/LoadingView';
-import ConfirmModal from '../../components/modals/ConfirmModal';
-import ActionModal from '../../components/modals/ActionModal';
+import NoData from '/imports/ui/components/noData/NoData';
+import LoadingView from '/imports/ui/components/loading/LoadingView';
+import ConfirmModal from '/imports/ui/components/modals/ConfirmModal';
+import ActionModal from '/imports/ui/components/modals/ActionModal';
+import TitleSection from '/imports/ui/components/pages/TitleSection';
 
 export const Messages = () => {
 
@@ -127,20 +128,19 @@ export const Messages = () => {
           setShowModalAction(false);
           setSelectMessage(null);
         }}
-        title={'Eliminar'}
-        message={'¿Desea eliminar este mensaje?'}
+        title='Eliminar'
+        message='¿Desea eliminar este mensaje?'
         handleAction={() => {
           setShowModalAction(false);
           deleteMessage(selectMessage);
         }}
       />
-      <CCol xs={12}>
-        <h3>
-          <FontAwesomeIcon icon={faCommentDots} className="me-1" />
-          Mensajes
-        </h3>
-        <hr />
-      </CCol>
+      <TitleSection
+        title='Mensajes'
+        subtitle={null}
+        icon={faCommentDots}
+        back={false}
+      />
       <CCol xs={12} className="text-end mb-3">
         <CButton
           color="primary"

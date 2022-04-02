@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { CButton, CCard, CCardBody, CCol, CContainer, CForm } from '@coreui/react';
+import { CButton, CCard, CCardBody, CCol, CForm } from '@coreui/react';
 import { faAddressBook, } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 
 import { useMessageById } from '/imports/startup/client/hooks';
 
-import LoadingView from '../../../components/loading/LoadingView';
-import ConfirmModal from '../../../components/modals/ConfirmModal';
+import LoadingView from '/imports/ui/components/loading/LoadingView';
+import ConfirmModal from '/imports/ui/components/modals/ConfirmModal';
+import TitleSection from '/imports/ui/components/pages/TitleSection';
 
 const MODES = {
   NEW: 'NEW',
@@ -108,13 +108,12 @@ export const NewMessage = (props) => {
         title={titleModal}
         message={messageModal}
       />
-      <CCol xs={12}>
-        <h3>
-          <FontAwesomeIcon icon={faAddressBook} className="me-1" />
-          {title}
-        </h3>
-        <hr />
-      </CCol>
+      <TitleSection
+        title={title}
+        subtitle={null}
+        icon={faAddressBook}
+        back={true}
+      />
       <CCol xs={12}>
         <CCard>
           <CCardBody>

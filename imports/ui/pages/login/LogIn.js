@@ -5,8 +5,8 @@ import {
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import LoadingView from '../../components/loading/LoadingView';
-import ConfirmModal from '../../components/modals/ConfirmModal';
+import LoadingView from '/imports/ui/components/loading/LoadingView';
+import ConfirmModal from '/imports/ui/components/modals/ConfirmModal';
 
 export const LogIn = () => {
 

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { 
-  CBadge,
-  CButton, CCard, CCardBody, CCardHeader, CCardText, CCol, 
-  CFormCheck, CRow,
+  CBadge, CButton, CCard, CCardBody, CCardHeader, CCardText, CCol, 
+  CRow,
 } from '@coreui/react';
 import { faBriefcase, faUsers, } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
@@ -12,18 +11,14 @@ import parse from 'html-react-parser';
 
 import { getTypeSite, getTypeWork } from '/imports/ui/components/utilities';
 import { 
-  dateFormatter, getEmployeeNumber, getNameItem,
+  callbackError, dateFormatter, getEmployeeNumber, getNameItem,
 } from '/imports/ui/pages/utils/formatters';
 
 import LoadingView from '/imports/ui/components/loading/LoadingView';
-import TitleSection from '../../../components/pages/TitleSection';
-import FormMessageModal from '../../../components/modals/FormMessageModal';
-import MessagesTable from '../../../components/tables/MessagesTable';
-import ApprovedModal from '../../../components/modals/ApprovedModal';
-
-const callbackError = (error) => {
-  return alert('Error, error.reason');
-};
+import TitleSection from '/imports/ui/components/pages/TitleSection';
+import FormMessageModal from '/imports/ui/components/modals/FormMessageModal';
+import MessagesTable from '/imports/ui/components/tables/MessagesTable';
+import ApprovedModal from '/imports/ui/components/modals/ApprovedModal';
 
 export const ViewVacancy = (props) => {
 
@@ -43,7 +38,7 @@ export const ViewVacancy = (props) => {
 
   const callback = (error, result) => {
     setLoading(false);
-    if (error) callbackError();
+    if (error) callbackError(error);
 
     setActionSelected([]);
     loadData();
@@ -52,8 +47,8 @@ export const ViewVacancy = (props) => {
 
   const loadData = () => {
     setLoading(true);
-    Meteor.call('getVacancayById', id, function(error, result) {
-      if (error) callbackError();
+    Meteor.call('getVacancyById', id, function(error, result) {
+      if (error) callbackError(error);
 
       if (result) {
         setData(result);

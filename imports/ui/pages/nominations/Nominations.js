@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { CButton, CCard, CCardBody, CCol } from '@coreui/react';
@@ -6,31 +6,70 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook, faEye, faUsersSlash, } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-import { useAllNominations, useAllVacancies, useAllUsers } from '/imports/startup/client/hooks';
+import { useAllVacancies, useAllEmployees } from '/imports/startup/client/hooks';
 import { 
-  badgeStatus, getNameItem, getEmployeeNumber, dateFormatter 
+  callbackError, badgeStatus, getNameItem, getEmployeeNumber, dateFormatter 
 } from '/imports/ui/pages/utils/formatters';
 
 import NoData from '/imports/ui/components/noData/NoData';
+import FilterNominations from '/imports/ui/components/form/FilterNominations';
+import TitleSection from '/imports/ui/components/pages/TitleSection';
+
+const DEFAULT_FILTERS =  {
+  startDate: null,
+  finishDate: null,
+  vacancy: '',
+  candidate: '',
+  employee: ''
+};
 
 export const Nominations = () => {
 
   const history = useNavigate();
-  const { loading: loading1, allNominations } = useAllNominations();
-  const { loading: loading2, allVacancies } = useAllVacancies();
-  const { loading: loading3, allUsers } = useAllUsers();
+  const [ loading, setLoading ] = useState(false);
+  const [ nominations, setNominations ] = useState([]);
+  const [ filters, setFilters ] = useState(DEFAULT_FILTERS);
+
+  const { loading: loading1, allVacancies } = useAllVacancies();
+  const { loading: loading2, allEmployees } = useAllEmployees();
+
+  const onSubmit = () => {
+    setLoading(true);
+
+    if (filters.startDate && filters.finishDate) {
+      const start = new Date(filters.startDate).getTime();
+      const finish = new Date(filters.finishDate).getTime();
+      if (start > finish) {
+        setLoading(false);
+        return alert('Error, La fecha de finalización debe ser mayor que la fecha de inicio');
+      }
+    }
+
+    Meteor.call('getNominations', filters, function(error, result) {
+      setLoading(false);
+      if (error) callbackError(error);
+
+      if (result) {
+        setNominations(result);
+      }
+    });
+  };
+
+  useEffect(() => {
+    onSubmit();
+  }, [filters]);
 
   const columns = [
     {
       dataField: 'id',
       text: '# Empleado',
       sort: true,
-      formatter: (cell, row) => getEmployeeNumber(row.candidate, allUsers)
+      formatter: (cell, row) => getEmployeeNumber(row.candidate, allEmployees)
     }, {
       dataField: 'candidate',
       text: 'Nombre',
       sort: true,
-      formatter: (cell) => getNameItem(cell, allUsers)
+      formatter: (cell) => getNameItem(cell, allEmployees)
     }, {
       dataField: 'vacancy',
       text: 'Vacante',
@@ -67,28 +106,35 @@ export const Nominations = () => {
     },
   ];
 
-  if (loading1 || loading2 || loading3) {
+  if (loading || loading1 || loading2) {
     return <LoadingView />;
   };
 
   return (
     <>
-      <CCol xs={12}>
-        <h3>
-          <FontAwesomeIcon icon={faAddressBook} className="me-1" />
-          Postulaciones
-        </h3>
-        <hr />
+      <TitleSection
+        title='Postulaciones'
+        subtitle={null}
+        icon={faAddressBook}
+        back={false}
+      />
+      <CCol xs={12} className="mb-3">
+        <FilterNominations
+          users={allEmployees}
+          filters={filters}
+          vacancies={allVacancies}
+          handleFilter={(filters) => setFilters(filters)}
+        />
       </CCol>
       <CCol xs={12}>
-        {allNominations.length > 0
+        {nominations.length > 0
           ? (
             <CCard>
               <CCardBody>
                 <div className="table-responsive-vacancies">
                   <BootstrapTable
                     keyField='_id'
-                    data={ allNominations }
+                    data={ nominations }
                     columns={ columns }
                     pagination={paginationFactory()}
                     striped

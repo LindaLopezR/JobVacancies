@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import { CButton, CCard, CCardBody, CCol, CContainer, } from '@coreui/react';
+import { CButton, CCard, CCardBody, CCol, } from '@coreui/react';
 import {
   faBriefcase, faEye, faHandshakeSimpleSlash, faPencilAlt, faPlusCircle, faTimes 
 } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,7 @@ import NoData from '/imports/ui/components/noData/NoData';
 import LoadingView from '/imports/ui/components/loading/LoadingView';
 import ConfirmModal from '/imports/ui/components/modals/ConfirmModal';
 import ActionModal from '/imports/ui/components/modals/ActionModal';
+import TitleSection from '/imports/ui/components/pages/TitleSection';
 
 export const Vacancies = () => {
 
@@ -187,13 +188,12 @@ export const Vacancies = () => {
           deleteVacancy(selectVacancy);
         }}
       />
-      <CCol xs={12}>
-        <h3>
-          <FontAwesomeIcon icon={faBriefcase} className="me-1" />
-          Vacantes
-        </h3>
-        <hr />
-      </CCol>
+      <TitleSection
+        title='Vacantes'
+        subtitle={null}
+        icon={faBriefcase}
+        back={false}
+      />
       <CCol xs={12} className="text-end mb-3">
         <CButton
           href="/newVacancy"

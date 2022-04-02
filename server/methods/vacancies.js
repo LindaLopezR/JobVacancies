@@ -39,7 +39,7 @@ Meteor.methods({
     return VacanciesCollection.remove({ _id: vacancyId });
   },
 
-  getVacancayById(vacancyId) {
+  getVacancyById(vacancyId) {
     const vacancy = VacanciesCollection.findOne({ _id: vacancyId });
     const nominations = NominationsCollection.find({ vacancy: vacancyId }).fetch();
     const allUsers = Meteor.users.find().fetch();

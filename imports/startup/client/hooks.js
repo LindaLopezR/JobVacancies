@@ -34,6 +34,26 @@ export const useAllUsers = () => useTracker(() => {
   }
 }, []);
 
+export const useAllEmployees = () => useTracker(() => {
+
+  const usersSubscription = Meteor.subscribe('allEmployees');
+  const rolesSubscription = Meteor.subscribe('allRoles');
+  const loading = !usersSubscription.ready() || !rolesSubscription.ready();
+
+  const roles = Meteor.roleAssignment.find({ 'role._id': 'user' }).fetch();
+  const idsUsers = roles.map(item => item.user._id);
+
+  let query = {
+    _id: { $in: idsUsers },
+    'profile.enable': true,
+  };
+
+  return {
+    allEmployees: Meteor.users.find(query).fetch(),
+    loading,
+  }
+}, []);
+
 export const useAllMessages = () => useTracker(() => {
   const messagesSubscription = Meteor.subscribe('allMessages');
   const loading = !messagesSubscription.ready();

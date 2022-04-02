@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  CButton, CCard, CCardBody, CCol, CContainer, CForm, CFormInput, 
+  CButton, CCard, CCardBody, CCol, CForm, CFormInput, 
   CFormLabel, CFormSelect, CRow,
 } from '@coreui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,8 +11,8 @@ import ReactQuill from 'react-quill';
 
 import { useVacancyById } from '/imports/startup/client/hooks';
 
-import LoadingView from '../../../components/loading/LoadingView';
-import ConfirmModal from '../../../components/modals/ConfirmModal';
+import LoadingView from '/imports/ui/components/loading/LoadingView';
+import ConfirmModal from '/imports/ui/components/modals/ConfirmModal';
 
 const MODES = {
   NEW: 'NEW',

@@ -3,53 +3,77 @@ import {
   CButton, CCard, CCardBody, CCardHeader, CCardTitle, 
   CCol, CRow,
 } from '@coreui/react';
-import { faBriefcase, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBriefcase, faEye, } from '@fortawesome/free-solid-svg-icons';
+
 import { useParams } from 'react-router-dom';
 
-import { 
-  useAllUsers, useAllVacancies, useAllMessages, useNominationById 
-} from '/imports/startup/client/hooks';
-
 import LoadingView from '/imports/ui/components/loading/LoadingView';
-import { dateFormatter, getNameItem } from '../../utils/formatters';
+import { dateFormatter } from '/imports/ui/pages/utils/formatters';
 
 export const ViewNomination = (props) => {
 
   const { id } = useParams();
-  const { loading: loading1, nomination } = useNominationById(id);
-  const { loading: loading2, allVacancies } = useAllVacancies();
-  const { loading: loading3, allUsers } = useAllUsers();
-  const { loading: loading4, allMessages } = useAllMessages();
+  const [ loading, setLoading ] = useState(true);
+  const [ nomination, setNomination ] = useState({});
+  const [ allMessages, setAllMessages ] = useState([]);
 
-  const [ messages, setMessages ] = useState([]);
+  const [ showModal, setShowModal ] = useState(false);
+
+  const loadData = () => {
+    setLoading(true);
+    Meteor.call('getNominationById', id, function(error, result) {
+      setLoading(false);
+      if (error) callbackError(error);
+
+      if (result) {
+        setNomination(result.nomination);
+        setAllMessages(result.messages)
+      }
+    });
+  }
 
   useEffect(() => {
-    let mss = [];
-    if (allVacancies && nomination) {
-      const data = allVacancies.find(vacancy => vacancy._id == nomination.vacancy);
-      console.log(data)
-      mss = data && data.history && data.history.filter(item => item.candidate == nomination.candidate);
-      
-    }
-    setMessages(mss);
-  }, [ allVacancies, nomination ]);
+    loadData();
+  }, []);
 
-  if (loading1 || loading2 || loading3 || loading4) {
+  const sendMessages = (message) => {
+    setLoading(true);
+    setShowModal(false);
+
+    const json = {
+      candidate: nomination.candidate,
+      vacancy: nomination.vacancy,
+      message
+    }
+
+    Meteor.call('sendMessage', json, function(error, result) {
+      setLoading(false);
+      if (error) callbackError();
+  
+      loadData();
+      return alert('Éxito');
+    });
+  };
+
+  if (loading || nomination == {}) {
     return <LoadingView />;
   };
 
-  const { candidate, date, vacancy } = nomination;
-
   return (
     <>
-      <CCol xs={12}>
-        <h3>
-          <FontAwesomeIcon icon={faBriefcase} className="me-1" />
-          Detalle de postulación
-        </h3>
-        <hr />
-      </CCol>
+      <FormMessageModal
+        visible={showModal}
+        messages={allMessages}
+        handleClose={() => setShowModal(false)}
+        handleAction={(data) => sendMessages(data)}
+      />
+      <TitleSection
+        title='Detalle de postulación'
+        subtitle={null}
+        icon={faBriefcase}
+        back={true}
+      />
       <CCol xs={12}>
         <CRow>
           <CCol md={4}>
@@ -59,26 +83,43 @@ export const ViewNomination = (props) => {
                 <CRow>
                   <CCol xs={8}>
                     <p className="mb-0">Empleado:</p>
-                    <CCardTitle>{getNameItem(candidate, allUsers)}</CCardTitle>
+                    <CCardTitle>{nomination.username && nomination.username}</CCardTitle>
                   </CCol>
-                  <CCol xs={4}>
-                    <CButton size="sm">Ver empleado</CButton>
+                  <CCol xs={4} className="d-flex justify-content-center align-items-center">
+                    <CButton
+                      size="sm"
+                      shape="rounded-pill"
+                    >
+                      <FontAwesomeIcon icon={faEye} />
+                    </CButton>
                   </CCol>
                 </CRow>
                 <p className="mb-0">Vacante:</p>
-                <CCardTitle>{getNameItem(vacancy, allVacancies)}</CCardTitle>
+                <CCardTitle>{nomination.vacancyName}</CCardTitle>
                 <p className="mb-0">Fecha:</p>
-                <CCardTitle>{dateFormatter(date)}</CCardTitle>
+                <CCardTitle>{dateFormatter(nomination.date)}</CCardTitle>
               </CCardBody>
             </CCard>
           </CCol>
           <CCol md={8}>
             <CCard className="card-answers mb-3">
-              <CCardHeader>Respuestas</CCardHeader>
+              <CCardHeader>Historial de Respuestas</CCardHeader>
               <CCardBody>
+                <CRow className="mb-2">
+                  <CCol xs={12} className="text-end">
+                    <CButton
+                      variant="outline"
+                      shape="rounded-pill"
+                      size="sm"
+                      onClick={() => setShowModal(true)}
+                    >
+                      Enviar nuevo mensaje
+                    </CButton>
+                  </CCol>
+                </CRow>
                 <MessagesTable
                   allMessages={allMessages}
-                  data={messages}
+                  data={nomination.historyMss}
                 />
               </CCardBody>
             </CCard>

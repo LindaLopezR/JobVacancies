@@ -13,7 +13,7 @@ Meteor.methods({
   },
 
   deleteMessage(messageId) {
-    return MessagesCollection.remove({ _id: messageId });
+    return MessagesCollection.update({ _id: messageId }, { $set: { enable: false } });
   },
 
 });
