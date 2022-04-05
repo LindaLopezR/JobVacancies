@@ -1,4 +1,5 @@
 import { NominationsCollection } from '/imports/api/nominations';
+import { MessagesCollection } from '/imports/api/messages';
 import { VacanciesCollection } from '/imports/api/vacancies';
 
 Meteor.methods({
@@ -71,9 +72,33 @@ Meteor.methods({
   },
 
   endpointGetNominations(userId) {
-    return NominationsCollection.find({ 
+    const allNominations = NominationsCollection.find({ 
       candidate: userId,
     }).fetch();
-  }
+    const user = Meteor.users.findOne({ _id: userId });
+    let nameUser = user ? user.profile.name.split(' ').slice(0, 1).join(' ') : 'User';
+
+    return allNominations.map(nomination => {
+      const vacancyData = VacanciesCollection.findOne({ _id: nomination.vacancy });
+      let allMessages = [];
+
+      if (vacancyData && vacancyData.history) {
+        const json = vacancyData.history.filter(item => item.candidate == userId);
+        if (Object.keys(json).length) {
+          Object.values(json).map(value => {
+            const dataMss = MessagesCollection.findOne({ _id: value.message });
+            value.completeMessage = dataMss.message.replace('{{user}}', nameUser);
+            value.labelMessage = dataMss.label.replace('{{user}}', nameUser);
+            return value;
+          });
+        }
+        allMessages = json;
+      }
+
+      nomination.vacancyName = vacancyData.name;
+      nomination.historyMss = allMessages;
+      return nomination;
+    });
+  },
 
 });

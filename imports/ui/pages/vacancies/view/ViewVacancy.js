@@ -190,7 +190,7 @@ export const ViewVacancy = (props) => {
                 }
               </CCol>
               <CCol xs={6} className="text-end">
-                {actionSelected.length >= 2 && 
+                {actionSelected.length > 0 && 
                   <CButton
                     variant="outline"
                     onClick={() => setShowModal(true)}

@@ -173,16 +173,29 @@ table {
       border: 0;
     }
     td.cell-description {
-      p {
-        margin-bottom: 0;
-        font-size: 14px;
-        &:first-child {
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      & > div {
+        & > :first-child {
+          margin-bottom: 0;
+          font-size: 14px;
           width: 10rem;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
+          > li:first-child {
+            width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+          > li:not(:first-child) {
+            display: none;
+          }
         }
-        &:not(:first-child) {
+        & > :not(:first-child) {
           display: none;
         }
       }

@@ -187,7 +187,7 @@ export const NewVacancy = (props) => {
                             { label: 'Híbrido', value: 2 },
                             { label: 'Remoto', value: 3 },
                           ]}
-                          value={data.typeWork}
+                          value={data.typeSite}
                           onChange={e => updateData('typeSite', e.target.value)}
                         />
                       </CCol>
