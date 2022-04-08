@@ -1,6 +1,7 @@
 import { MessagesCollection } from '/imports/api/messages';
 import { NominationsCollection } from '/imports/api/nominations';
 import { VacanciesCollection } from '/imports/api/vacancies';
+import { Communication } from '../ddp-communications';
 
 Meteor.methods({
 
@@ -64,6 +65,8 @@ Meteor.methods({
         history: data
       },
     });
+
+    Communication.notifyNewMessage(data);
     return true;
   },
 
