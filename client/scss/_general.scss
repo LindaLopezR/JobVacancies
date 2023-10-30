@@ -1,0 +1,227 @@
+@import './variables';
+
+body {
+  font-family: sans-serif;
+  height: 100vh;
+}
+
+* {
+  font-family: fontGeneral;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #2c5429!important;
+  font-family: fontTitles;
+  span, small, strong {
+    font-family: fontTitles;
+  }
+}
+
+p, li, a, label, select, input {
+  font-size: 0.9rem!important;
+}
+
+.title-segment {
+  color: #999!important;
+  font-weight: bold;
+}
+
+.sidebar {
+  --cui-sidebar-width: 12rem!important;
+  background-color: $success-color-dark!important;
+}
+.sidebar:not(.sidebar-end)~* {
+  --cui-sidebar-occupy-start: 12rem!important;
+}
+
+.container-free {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  font-size: 0.9rem!important;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center!important;
+  padding: 6px 0!important;
+  font-size: 12px!important;
+  line-height: 1.428571429!important;
+  border-radius: 15px!important;
+}
+
+.btn-info {
+  color: white!important;
+  background-color: $teal-color!important;
+  border-color: $teal-color!important;
+  &:hover {
+    background-color: $teal-color-dark!important;
+    border-color: $teal-color-dark!important;
+  }
+}
+
+.btn-primary {
+  background-color: $primary-color!important;
+  border-color: $primary-color!important;
+  &:hover {
+    background-color: $primary-color-dark!important;
+    border-color: $primary-color-dark!important;
+  }
+}
+
+.btn-success {
+  background-color: $success-color!important;
+  border-color: $success-color!important;
+  &:hover {
+    background-color: $success-color-dark!important;
+    border-color: $success-color-dark!important;
+  }
+}
+
+.btn-success-dark {
+  color: white!important;
+  background-color: $success-color-dark!important;
+  border-color: $success-color-dark!important;
+  &:hover {
+    background-color: $success-color!important;
+    border-color: $success-color!important;
+  }
+}
+
+.badge {
+  font-family: fontTitles!important;
+  font-weight: 500!important;
+  letter-spacing: 0.05em;
+  p {
+    margin-bottom: 0;
+    font-size: 0.8rem;
+  }
+}
+
+.bg-primary {
+  background-color: #0d6efd!important;
+}
+.bg-secondary {
+  background-color: #6c757d!important
+}
+.bg-success {
+  background-color: #198754!important;
+}
+.bg-danger {
+  background-color: #dc3545!important;
+}
+.bg-warning {
+  background-color: #ffc107!important;
+}
+.bg-info {
+  background-color: #0dcaf0!important;
+}
+.bg-light {
+  background-color: #f8f9fa!important;
+}
+.bg-dark {
+  background-color: #212529!important;
+}
+.bg-teal {
+  background-color: $teal-color!important;
+}
+.bg-pink {
+  background-color: $pink-color!important;
+}
+.bg-orange {
+  background-color: $orange-color!important;
+}
+.bg-purple {
+  background-color: #5c5594!important;
+}
+
+// CARDS 
+.card .card-header {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: #34a52f14;
+}
+
+table {
+  font-size: 0.85rem;
+  thead {
+    tr {
+      th {
+        border: 0;
+        text-transform: uppercase;
+        padding: 0.9rem 0.5rem!important;
+        font-size: 13px;
+      }
+    }
+  }
+  tr {
+    td {
+      padding: 1rem 0.5rem!important;
+      border: 0;
+    }
+    td.cell-description {
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      & > div {
+        & > :first-child {
+          margin-bottom: 0;
+          font-size: 14px;
+          width: 10rem;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          > li:first-child {
+            width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+          > li:not(:first-child) {
+            display: none;
+          }
+        }
+        & > :not(:first-child) {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+li.page-item.active  a.page-link {
+  background-color: $primary-color!important;
+  border-color: $primary-color!important;
+  &:hover {
+    background-color: $primary-color-dark!important;
+    border-color: $primary-color-dark!important;
+  }
+}
+
+// MESSAGES
+td.cell-label-message {
+  > * {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+
+
+

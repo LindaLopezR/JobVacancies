@@ -1,0 +1,57 @@
+@import './variables';
+
+.content-notFound {
+  .bg-bubbles li {
+    background: $teal-color;
+  }
+}
+
+.content-unauthorized {
+  .bg-bubbles li {
+    background: $main-color;
+  }
+}
+
+.content-unauthorized,
+.content-notFound {
+
+  div.info {
+    z-index: 20;
+  }
+
+  @keyframes animate {
+    0% {
+      @include transform(translateY(0) rotate(0deg));
+      opacity: 1;
+      border-radius: 100;
+    }
+
+    100% {
+      @include transform(translateY(-1000px) rotate(720deg));
+      opacity: 0;
+      border-radius: 100%;
+    }
+  }
+}
+
+.card-vacancy {
+  max-height: 75vh;
+  @include scrollContent;
+}
+
+.card-candidates .card-body {
+  max-height: 46vh;
+  @include scrollContent;
+}
+
+.card-history .card-body {
+  max-height: 30vh;
+  @include scrollContent;
+}
+
+.card-answers .card-body {
+  max-height: 80vh;
+  overflow-y: auto;
+  @include scrollContent;
+}
+

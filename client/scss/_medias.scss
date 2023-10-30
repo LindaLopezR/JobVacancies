@@ -1,0 +1,41 @@
+@import './variables';
+
+@media (max-width: 1199px) and (min-width: 992px) {
+}
+
+
+@media (max-width: 991px) and (min-width: 768px) {
+}
+
+@media (max-width: 991px) {
+  .container-body {
+    min-height: 100%;
+    height: auto!important;
+  }
+
+  .card-vacancy {
+    max-height: 50vh!important;
+  }
+  
+  .card-candidates .card-body, 
+  .card-history .card-body,
+  .card-answers .card-body {
+    max-height: initial!important;
+  }
+
+  .table-responsive-vacancies {
+    overflow-x: auto;
+    table {
+      width: 60rem!important;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: none!important;
+  }
+  .sidebar:not(.sidebar-end)~* {
+    --cui-sidebar-occupy-start: 0rem!important;
+  }
+}
