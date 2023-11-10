@@ -14,6 +14,8 @@ meteor
 
 ## Uso
 
+Administrador
+
 - Usuario: admin
 
 - Contraseña: Password1
