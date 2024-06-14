@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  CCol, CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, 
+  CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, 
   CNavbarToggler, CNavItem, CNavLink, CRow
 } from '@coreui/react';
 import { Outlet } from 'react-router-dom';
@@ -18,7 +18,7 @@ export default MainLayout = props => {
       <div className="wrapper">
         <CNavbar expand="lg" colorScheme="light" className="bg-light">
           <CContainer fluid>
-            <CNavbarBrand className="d-md-none">Job Vacancies</CNavbarBrand>
+            <CNavbarBrand className="d-md-none">Ofertas de empleo</CNavbarBrand>
             <CNavbarToggler
               aria-label="Toggle navigation"
               aria-expanded={visible}
