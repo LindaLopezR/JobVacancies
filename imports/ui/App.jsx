@@ -39,69 +39,67 @@ const ProtectedLogging = ({ children }) => {
 }
 
 export const App = () => (
-  <>
-    <Router>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path='/' element={
-            <RequireAuth>
-              <Nominations />
-            </RequireAuth>
-          } />
-          <Route path='/viewNomination/:id' element={
-            <RequireAuth>
-              <ViewNomination />
-            </RequireAuth>
-          } />
-          <Route path='/vacancies' element={
-            <RequireAuth>
-              <Vacancies />
-            </RequireAuth>
-          } />
-          <Route path='/newVacancy' element={
-            <RequireAuth>
-              <NewVacancy mode={'NEW'} />
-            </RequireAuth>
-          } />
-          <Route path='/editVacancy/:id' element={
-            <RequireAuth>
-              <NewVacancy mode={'EDIT'} />
-            </RequireAuth>
-          } />
-          <Route path='/viewVacancy/:id' element={
-            <RequireAuth>
-              <ViewVacancy />
-            </RequireAuth>
-          } />
-          <Route path='/messages' element={
-            <RequireAuth>
-              <Messages />
-            </RequireAuth>
-          } />
-          <Route path='/newMessage' element={
-            <RequireAuth>
-              <NewMessage mode={'NEW'} />
-            </RequireAuth>
-          } />
-          <Route path='/editMessage/:id' element={
-            <RequireAuth>
-              <NewMessage mode={'EDIT'} />
-            </RequireAuth>
-          } />
-        </Route>
-        <Route element={<FreeLayout />}>
-          <Route path='/login' element={
-            <ProtectedLogging>
-              <LogIn />
-            </ProtectedLogging>
-          } />
-          <Route path='*' element={
-            <ProtectedLogging>
-              <NotFound />
-            </ProtectedLogging>
-          } />
-        </Route>
-      </Routes>
-    </Router>
-  </>
+  <Router>
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path='/' element={
+          <RequireAuth>
+            <Nominations />
+          </RequireAuth>
+        } />
+        <Route path='/viewNomination/:id' element={
+          <RequireAuth>
+            <ViewNomination />
+          </RequireAuth>
+        } />
+        <Route path='/vacancies' element={
+          <RequireAuth>
+            <Vacancies />
+          </RequireAuth>
+        } />
+        <Route path='/newVacancy' element={
+          <RequireAuth>
+            <NewVacancy mode={'NEW'} />
+          </RequireAuth>
+        } />
+        <Route path='/editVacancy/:id' element={
+          <RequireAuth>
+            <NewVacancy mode={'EDIT'} />
+          </RequireAuth>
+        } />
+        <Route path='/viewVacancy/:id' element={
+          <RequireAuth>
+            <ViewVacancy />
+          </RequireAuth>
+        } />
+        <Route path='/messages' element={
+          <RequireAuth>
+            <Messages />
+          </RequireAuth>
+        } />
+        <Route path='/newMessage' element={
+          <RequireAuth>
+            <NewMessage mode={'NEW'} />
+          </RequireAuth>
+        } />
+        <Route path='/editMessage/:id' element={
+          <RequireAuth>
+            <NewMessage mode={'EDIT'} />
+          </RequireAuth>
+        } />
+      </Route>
+      <Route element={<FreeLayout />}>
+        <Route path='/login' element={
+          <ProtectedLogging>
+            <LogIn />
+          </ProtectedLogging>
+        } />
+        <Route path='*' element={
+          <ProtectedLogging>
+            <NotFound />
+          </ProtectedLogging>
+        } />
+      </Route>
+    </Routes>
+  </Router>
 );
